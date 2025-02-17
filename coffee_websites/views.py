@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 
@@ -19,6 +19,8 @@ def beans(request):
 def bean(request, bean_id):
 	"""Show a single bean and all its reviews"""
 	bean = Bean.objects.get(id=bean_id)
+	## uncomment for final site 
+	# bean = get_object_or_404(Bean, id=bean_id)
 	reviews = bean.review_set.order_by('-date_added')
 	context = {'bean': bean, 'reviews': reviews}
 	return render(request, 'coffee_websites/bean.html', context)
