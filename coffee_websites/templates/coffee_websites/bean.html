@@ -1,0 +1,33 @@
+{% extends "coffee_websites/base.html" %}
+
+{% block page_header %}
+	<h3>Bean: {{ bean }}</h3>
+{% endblock page_header %}
+
+
+{% block content %}
+
+	<p>Reviews:</p>
+	<p>
+		<a href="{% url 'coffee_websites:new_review' bean.id %}">Add a new review</a>
+	</p>
+
+	
+	{% for review in reviews %}
+		<div class="card mb-3">
+			<h4 class="card-header">
+				<p><a href="{% url 'coffee_websites:review' review.id %}">{{ review.title }}</a></p>
+				<p>{{ review.owner }} | {{ review.rating }} | <small>{{ review.date_added|date:'M d, Y' }}</small></p>
+			</h4>
+			<div class="card-body">
+				<p>{{review.text|linebreaks}}</p>
+				<p><small><a href="{% url 'coffee_websites:edit_review' review.id %}">edit review</a></small></p>
+			</div>
+			
+		</div>
+			
+	{% empty %}
+		<p>There are no reviews for this bean yet</p>
+	{% endfor %}
+
+{% endblock content %}

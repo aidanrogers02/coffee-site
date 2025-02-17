@@ -1,0 +1,20 @@
+{% extends "coffee_websites/base.html" %}
+
+{% block page_header %}
+	<h1>Beans</h1>
+{% endblock page_header %}
+
+{% block content %}
+
+	<ul>
+		{% for bean in beans %}
+			<li><h3>
+				<a href="{% url 'coffee_websites:bean' bean.id %}">{{ bean }}</a>
+			</h3></li>
+		{% empty %}
+			<h3><li>No beans have been added yet.</li></h3>
+		{% endfor %}
+	</ul>
+
+{% endblock content %}
+

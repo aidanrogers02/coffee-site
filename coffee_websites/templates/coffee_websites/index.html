@@ -1,0 +1,23 @@
+{% extends "coffee_websites/base.html" %}
+
+<!-- The head content of the page -->
+{% block page_header %}
+	
+	<div class="jumbotron">
+		<h1 class="display-3">Find the best coffee beans!</h1>
+
+		<p class="lead">Find coffee beans that others love. When you try new coffee beans yourself come here to review them.</p>
+
+		{% if user.is_anonymous %}
+			<a class="btn btn-lg btn-primary" href="{% url 'users:register' %}">Register &raquo;</a>
+		{% endif %}
+
+	</div>
+
+{% endblock page_header %}
+
+
+<!-- The body content of the page -->
+{% block content %}
+	<p>You can review Coffee Beans here.</p>
+{% endblock content %}

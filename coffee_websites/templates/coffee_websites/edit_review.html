@@ -1,0 +1,21 @@
+{% extends "coffee_websites/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+	<h2>Edit your review</h2>
+{% endblock page_header %}
+
+
+{% block content %}
+
+	<h3><a href="{% url 'coffee_websites:bean' bean.id %}">{{ bean }}</a></h3>
+
+	<form action="{% url 'coffee_websites:edit_review' review.id %}" method='post'>
+		{% csrf_token %}
+		{% bootstrap_form form %}
+		<button name='submit' class="btn btn-primary">Save Changes</button>
+	</form>
+
+	<a href="{% url 'coffee_websites:bean' bean.id %}"><button name='back' class="btn btn-secondary mt-4">&larr; Go Back</button></a>
+
+{% endblock content %}

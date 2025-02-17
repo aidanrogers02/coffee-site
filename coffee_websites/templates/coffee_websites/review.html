@@ -1,0 +1,15 @@
+{% extends "coffee_websites/base.html" %}
+
+{% block content %}
+
+	<p>Review Title: {{ review.title }}</p>
+	<p>By {{review.owner}}</p>
+
+	<p>For bean: {{ bean }}</p>
+
+	<p>Rating: {{review.rating}}</p>
+	<p>{{ review.date_added|date:'M d, Y H:i' }}</p>
+	<p>{{ review.text|linebreaks }}</p>
+			
+
+{% endblock content %}

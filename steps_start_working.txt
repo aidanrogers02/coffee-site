@@ -1,0 +1,12 @@
+1. Enter folder
+2. Activate project environment
+3. Run django server
+
+  __Commands__
+get to folder: cd/desktop/coffee_site
+activate venv: source cs_env/bin/activate
+
+server command: python manage.py runserver
+
+set migration command: python manage.py makemigrations coffee_websites
+migrate command: python manage.py migrate

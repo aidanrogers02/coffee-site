@@ -1,0 +1,28 @@
+{% extends "coffee_websites/base.html" %}
+{% load bootstrap4 %}
+
+{% block page_header %}
+	<h2>Log in to your account.</h2>
+{% endblock page_header %}
+
+{% block content %}
+
+	<!-- django-bootstrap4 manages errors so this is no longer needed -->
+	<!-- {% if form.errors %}
+		<p>Your username and password did not match. Please try again.</p>
+	{% endif %} -->
+
+	<form method="post" action="{% url 'users:login' %}" class="form">
+		{% csrf_token %}
+		{% bootstrap_form form %}
+		<!-- replaces by above line -->
+		<!-- {{ form.as_p }} -->
+
+		<!-- Button to submit form -->
+		<button type="submit" class="btn btn-primary">Log in</button>
+		
+
+		<input type="hidden" name="next" value="{% url 'coffee_websites:index' %}"/>
+	</form>
+	
+{% endblock content %}
