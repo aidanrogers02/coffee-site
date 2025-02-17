@@ -1,15 +1,23 @@
 {% extends "coffee_websites/base.html" %}
 
+{% block page_header %}
+	<h3>Review for <a href="{% url 'coffee_websites:bean' bean.id %}">{{ bean }}</a></h3>
+{% endblock page_header %}
+
 {% block content %}
 
-	<p>Review Title: {{ review.title }}</p>
-	<p>By {{review.owner}}</p>
-
-	<p>For bean: {{ bean }}</p>
-
-	<p>Rating: {{review.rating}}</p>
-	<p>{{ review.date_added|date:'M d, Y H:i' }}</p>
-	<p>{{ review.text|linebreaks }}</p>
+	<div class="card mb-3">
+		<h4 class="card-header">
+			<p>{{ review.title }}</p>
+			<p>{{ review.owner }} | {{ review.rating }} | <small>{{ review.date_added|date:'M d, Y' }}</small></p>
+		</h4>
+		
+		<div class="card-body">
+			<p>{{review.text|linebreaks}}</p>
+			<p><small><a href="{% url 'coffee_websites:edit_review' review.id %}">edit review</a></small></p>
+		</div>
+			
+	</div>
 			
 
 {% endblock content %}
