@@ -1,9 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
+from django.db.models import Avg
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 from .models import Bean, Review
 from .forms import ReviewForm
+
 
 # Create your views here.
 def index(request):
@@ -12,8 +17,14 @@ def index(request):
 
 def beans(request):
 	"""Show all beans"""
-	beans = Bean.objects.order_by('name')
-	context = {'beans': beans}
+	query = request.GET.get('q')
+	if query:
+		beans = Bean.objects.filter(name__icontains=query)
+	else:
+		beans = Bean.objects.all().annotate(avg_rating=Avg("review__rating"))
+
+	# beans = Bean.objects.annotate(avg_rating=Avg("review__rating"))
+	context = {'beans': beans, 'query': query}
 	return render(request, 'coffee_websites/beans.html', context)
 
 def bean(request, bean_id):
@@ -31,6 +42,13 @@ def review(request, review_id):
 	bean = review.bean
 	context = {'bean': bean, 'review': review}
 	return render(request, 'coffee_websites/review.html', context)
+
+def user_reviews(request, username):
+    user = get_object_or_404(User, username=username)
+    reviews = Review.objects.filter(owner=user).order_by('-date_added')  # Get reviews in descending order
+
+    context = {'user_profile': user, 'reviews': reviews}
+    return render(request, 'coffee_websites/user_reviews.html', context)
 
 # def user_page(request, user_id):
 # 	"""Show all the reviews that a single user has left"""
@@ -87,3 +105,5 @@ def edit_review(request, review_id):
 
 	context = {'review': review, 'bean': bean, 'form': form}
 	return render(request, 'coffee_websites/edit_review.html', context)
+
+

@@ -6,15 +6,41 @@
 
 {% block content %}
 
-	<ul>
-		{% for bean in beans %}
-			<li><h3>
-				<a href="{% url 'coffee_websites:bean' bean.id %}">{{ bean }}</a>
-			</h3></li>
-		{% empty %}
-			<h3><li>No beans have been added yet.</li></h3>
-		{% endfor %}
-	</ul>
+
+
+<form class="d-flex" method="get" action="{% url 'coffee_websites:beans' %}">
+    <input class="form-control me-2" type="search" placeholder="&#128269; Search beans..." name="q" value="{{ query|default:'' }}">
+    <button class="btn btn-outline-primary ml-1" type="submit">Search</button>
+
+    {% if query %}
+        <a href="{% url 'coffee_websites:beans' %}" class="btn btn-outline-primary ml-1">Clear</a>
+    {% endif %}
+</form>
+
+<div class="container mt-4">
+    <div class="row">
+        {% for bean in beans %}
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{% url 'coffee_websites:bean' bean.id %}">{{ bean }}</a></h5>
+                        <p class="card-text">
+                            <strong>Average Rating:</strong> 
+                            {% if bean.avg_rating %}
+                                <span class="badge bg-warning text-dark">
+                                    {{ bean.avg_rating|floatformat:1 }} ⭐
+                                </span>
+                            {% else %}
+                                <span class="badge bg-secondary">No ratings yet.</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
 
 {% endblock content %}
 

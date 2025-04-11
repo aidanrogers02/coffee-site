@@ -1,5 +1,7 @@
 {% extends "coffee_websites/base.html" %}
 {% load bootstrap4 %}
+{% load socialaccount %}
+
 
 {% block page_header %}
 	<h2>Log in to your account.</h2>
@@ -24,5 +26,9 @@
 
 		<input type="hidden" name="next" value="{% url 'coffee_websites:index' %}"/>
 	</form>
+
+	<a href="{% provider_login_url 'google' %}" class="btn btn-danger w-100 mt-4">
+    	<i class="bi bi-google"></i> Log in with Google
+	</a>
 	
 {% endblock content %}

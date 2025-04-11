@@ -17,12 +17,18 @@
 		<div class="card mb-3">
 			<h4 class="card-header">
 				<p><a href="{% url 'coffee_websites:review' review.id %}">{{ review.title }}</a></p>
-				<p>{{ review.owner }} | {{ review.rating }} | <small>{{ review.date_added|date:'M d, Y' }}</small></p>
+				<p>
+					<strong>User: </strong><a href="{% url 'coffee_websites:user_reviews' review.owner.username %}">{{ review.owner }}</a>
+     				| <strong>Rating: </strong>{{ review.rating|floatformat:0 }} ⭐ 
+     				| <strong>Date Added: </strong><small>{{ review.date_added|date:'M d, Y' }}</small>				
+     			</p>
 			</h4>
 			
 			<div class="card-body">
 				<p>{{review.text|linebreaks}}</p>
-				<p><small><a href="{% url 'coffee_websites:edit_review' review.id %}">edit review</a></small></p>
+				{% if request.user == review.owner %}
+					<p><small><a href="{% url 'coffee_websites:edit_review' review.id %}">edit review</a></small></p>
+				{% endif %}
 			</div>
 			
 		</div>

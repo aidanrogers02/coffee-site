@@ -1,0 +1,27 @@
+{% extends "coffee_websites/base.html" %}
+
+{% block page_header %}
+    <h3>Reviews by <strong>{{ user_profile.username }}</strong></h3>
+{% endblock page_header %}
+
+{% block content %}
+    {% for review in reviews %}
+        <div class="card mb-3">
+            <h4 class="card-header">
+                <p><strong>Bean: </strong><a href="{% url 'coffee_websites:bean' review.bean.id %}">{{ review.bean }}</a></p>
+                <p><strong>Title: </strong><a href="{% url 'coffee_websites:review' review.id %}">{{ review.title }}</a></p>
+                <p><strong>Rating:</strong> {{ review.rating|floatformat:0 }} ⭐ | <strong>Date:</strong> {{ review.date_added|date:'M d, Y' }}</p>
+            </h4>
+            
+            <div class="card-body">
+                <p>{{ review.text|linebreaks }}</p>
+                
+                {% if request.user == review.owner %}
+                    <p><small><a href="{% url 'coffee_websites:edit_review' review.id %}">edit review</a></small></p>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <p>No reviews yet.</p>
+    {% endfor %}
+{% endblock content %}

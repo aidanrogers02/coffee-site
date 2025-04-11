@@ -1,0 +1,43 @@
+/* coffee_websites/static/css/custom.css */
+
+.btn-primary {
+  background-color: #6f42c1 !important;  /* Bootstrap’s native purple */
+  border-color: #6f42c1 !important;
+}
+
+.btn-primary:hover {
+  background-color: #5936a2 !important;
+  border-color: #5936a2 !important;
+}
+
+.text-primary {
+  color: #6f42c1 !important;
+}
+
+.bg-primary {
+  background-color: #6f42c1 !important;
+}
+
+/* Make regular hyperlinks purple */
+a {
+  color: #6f42c1;
+}
+
+a:hover,
+a:focus {
+  color: #5936a2;
+  text-decoration: underline;
+}
+
+/* Outline buttons */
+.btn-outline-primary {
+  color: #6f42c1;
+  border-color: #6f42c1;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  background-color: #6f42c1;
+  color: white;
+  border-color: #6f42c1;
+}
